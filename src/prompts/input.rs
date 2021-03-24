@@ -320,9 +320,10 @@ where
                 term.read_line()?
             };
 
-            render.add_line();
-            term.clear_line()?;
+            // Write ANSI escape code for returning to start of line (https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#erase-functions)
+            term.write_str("\r\x1b[1K")?;
             render.clear()?;
+            term.flush()?;
 
             if input.is_empty() {
                 if let Some(ref default) = self.default {

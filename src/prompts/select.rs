@@ -295,7 +295,7 @@ impl<'a> Select<'a> {
             term.flush()?;
 
             match term.read_key()? {
-                Key::ArrowDown | Key::Char('j') => {
+                Key::ArrowDown | Key::Char('j') | Key::Char('s') | Key::Tab => {
                     if sel == !0 {
                         sel = 0;
                     } else {
@@ -313,7 +313,7 @@ impl<'a> Select<'a> {
                         return Ok(None);
                     }
                 }
-                Key::ArrowUp | Key::Char('k') => {
+                Key::ArrowUp | Key::Char('k') | Key::Char('w') | Key::BackTab => {
                     if sel == !0 {
                         sel = self.items.len() - 1;
                     } else {
